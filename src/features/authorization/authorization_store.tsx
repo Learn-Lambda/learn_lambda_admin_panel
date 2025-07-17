@@ -7,8 +7,8 @@ import {
 } from "./authorization_repository";
 import { FormState } from "../../core/store/base_store";
 import { MainPanelPath } from "../main_panel/main_panel";
- 
-export class AuthorizationStore extends FormState<AuthorizationModel, any> {
+
+export class AuthorizationStore extends FormState<AuthorizationModel> {
   viewModel: AuthorizationModel = AuthorizationModel.empty();
   authorizationLocalStorageRepository: AuthorizationLocalStorageRepository =
     new AuthorizationLocalStorageRepository();
@@ -17,8 +17,8 @@ export class AuthorizationStore extends FormState<AuthorizationModel, any> {
     super();
     makeAutoObservable(this);
   }
-  onTapLogin(): void {
-    this.viewModel.isValid()?.fold(
+  async onTapLogin() {
+    (await this.viewModel.valid())?.fold(
       async () => {
         (await this.authorizationHttpRepository.login(this.viewModel)).fold(
           (token) => {

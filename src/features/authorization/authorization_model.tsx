@@ -1,29 +1,13 @@
 import { IsNotEmpty, IsString } from "class-validator";
-import { Result } from "../../core/helper/result";
+import { ValidationModel } from "../../core/model/validation_model";
 
-export class AuthorizationModel {
+export class AuthorizationModel extends ValidationModel {
   @IsNotEmpty()
   @IsString()
-  email: string;
+  login: string;
   @IsNotEmpty()
   @IsString()
   password: string;
 
-  constructor(email: string, password: string) {
-    this.email = email;
-    this.password = password;
-  }
-  isValid(): Result<string, void> {
-    if (this.email.isEmpty()) {
-      return Result.error("поле логин пустое");
-    }
-    if (this.password.isEmpty()) {
-      return Result.error("поле пароль пустое");
-    }
-
-    return Result.ok();
-  }
-  static empty() {
-    return new AuthorizationModel("", "");
-  }
+  static empty = () => new AuthorizationModel();
 }

@@ -13,8 +13,8 @@ export const AuthorizationScreen = observer(() => {
       <div style={{ height: 20 }} />
       <CoreInput
         label={"login"}
-        value={store.viewModel.email}
-        onChange={(text) => store.updateForm({ email: text })}
+        value={store.viewModel.login}
+        onChange={(text) => store.updateForm({ login: text })}
       />
       <CoreInput
         label={"password"}

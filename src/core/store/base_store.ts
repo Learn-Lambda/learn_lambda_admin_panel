@@ -115,7 +115,7 @@ export abstract class UiDrawerFormState<V, E> extends DrawerState<E> {
     this.viewModel = plainToInstance(instance, viewModel);
   };
 }
-export abstract class FormState<V, E> extends UiErrorState<E> {
+export abstract class FormState<V> extends UiErrorState<any> {
   abstract viewModel: V;
   navigate?: NavigateFunction;
   updateFormCallback = () => {
@@ -148,7 +148,7 @@ export abstract class FormState<V, E> extends UiErrorState<E> {
   }
 }
 
-export abstract class CrudFormStore<V extends ValidationModel, E, R extends CrudHttpRepository<V>> extends FormState<V, E> {
+export abstract class CrudFormStore<V extends ValidationModel, E, R extends CrudHttpRepository<V>> extends FormState<V> {
   page: number = 0;
   models?: V[];
   abstract repository: R;

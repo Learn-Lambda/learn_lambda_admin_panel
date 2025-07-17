@@ -9,5 +9,5 @@ export class AuthorizationLocalStorageRepository extends LocalStorageRepository 
   isAuth = () => this._getItem("auth").map((s: any) => Boolean(s));
 }
 export class AuthorizationHttpRepository extends HttpRepository {
-  login = (authorizationModel: AuthorizationModel) => this._jsonRequest<{ token: string }>(HttpMethod.POST, '/auth', authorizationModel);
+  login = (authorizationModel: AuthorizationModel) => this._jsonRequest<{ token: string }>(HttpMethod.POST, '/admin/login', authorizationModel);
 }
