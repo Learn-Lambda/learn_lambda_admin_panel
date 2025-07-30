@@ -1,13 +1,13 @@
 import React from "react";
 import { themeStore } from "../../..";
+import { ModalStore } from "../../store/base_store";
+import { observer } from "mobx-react-lite";
 
 export const ModalV2: React.FC<{
-  isOpen: boolean;
-  onClose: () => void;
+  store: ModalStore;
   children: React.ReactNode;
-  style?: React.CSSProperties;
-}> = ({ isOpen, onClose, children, style }) => {
-  if (!isOpen) return null;
+}> = observer(({ store, children }) => {
+  if (!store.isModalOpen) return null;
 
   return (
     <div
@@ -22,12 +22,12 @@ export const ModalV2: React.FC<{
         justifyContent: "center",
         alignItems: "center",
       }}
-      onClick={() => onClose()}
+      onClick={() => store.modalCancel()}
     >
       <div
         onClick={(event) => event.stopPropagation()}
         style={{
-          backgroundColor: 'white',
+          backgroundColor: "white",
           border: `1px solid ${themeStore.theme.greenWhite}`,
           padding: 20,
           borderRadius: 5,
@@ -39,4 +39,4 @@ export const ModalV2: React.FC<{
       </div>
     </div>
   );
-};
+});

@@ -6,7 +6,8 @@ import {
   AuthorizationLocalStorageRepository,
 } from "./authorization_repository";
 import { FormState } from "../../core/store/base_store";
-import { MainPanelPath } from "../main_panel/main_panel";
+import { RecognitionCategoryPath } from "../recognition_category/recognition_category";
+import { HomePath } from "../home/home";
 
 export class AuthorizationStore extends FormState<AuthorizationModel> {
   viewModel: AuthorizationModel = AuthorizationModel.empty();
@@ -24,7 +25,7 @@ export class AuthorizationStore extends FormState<AuthorizationModel> {
           (token) => {
             this.authorizationLocalStorageRepository.setAuthStatus(true);
             this.authorizationLocalStorageRepository.setJwtToken(token.token);
-            if (this.navigate) this.navigate(MainPanelPath);
+            if (this.navigate) this.navigate(HomePath);
           },
           (e) => {
             message.error(e.message);

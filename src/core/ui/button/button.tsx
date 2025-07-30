@@ -14,6 +14,7 @@ export function CoreButton(props: {
       onClick={() => props.onClick?.call()}
       style={Object.assign(
         {
+          width: "max-content",
           backgroundColor: props.filled ? "rgba(103, 80, 164, 1)" : "",
           paddingRight: 10,
           paddingLeft: 10,

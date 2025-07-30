@@ -41,7 +41,7 @@ export const InputV2: React.FC<InputV2Props> = ({ label, height, value, onChange
             borderRadius: 5,
           }}
           contentEditable={true}
-          type={CoreTextType.largeV2}
+          type={CoreTextType.header}
           color={themeStore.theme.white}
           fontType={FontType.ubuntu}
           text={value}

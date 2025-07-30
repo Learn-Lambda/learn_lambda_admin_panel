@@ -3,7 +3,7 @@ import { CoreButton } from "../button/button";
 import { CoreText, CoreTextType } from "../text/text";
 
 export const CorePagination: React.FC<{
-  store: CrudFormStore<any, unknown, any>;
+  store: CrudFormStore<any, any>;
 }> = ({ store }) => (
   <>
     <div
@@ -24,7 +24,7 @@ export const CorePagination: React.FC<{
       <div style={{ width: 10 }} />
       <CoreText
         type={CoreTextType.largeV2}
-        text={(store.page + 1).toString()}
+        text={(store.page?.currentPage ?? 0).toString()}
       />
       <div style={{ width: 10 }} />
       <CoreButton

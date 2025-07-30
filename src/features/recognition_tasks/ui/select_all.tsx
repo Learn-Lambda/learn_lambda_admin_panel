@@ -1,12 +1,10 @@
-import { observer } from "mobx-react-lite";
+import { Editor } from "@monaco-editor/react";
+ import { observer } from "mobx-react-lite";
+import { NavigateFunction } from "react-router-dom";
+import { useStore } from "../../../core/helper/use_store";
+import { FormState } from "../../../core/store/base_store";
 import * as monaco from "monaco-editor";
 import makeAutoObservable from "mobx-store-inheritance";
-import { useStore } from "../../core/helper/use_store";
-import { FormState } from "../../core/store/base_store";
-import { NavigateFunction } from "react-router-dom";
-import { Editor } from "@monaco-editor/react";
-
-export const MainPanelPath = "/main_panel";
 
 export class SelectAllModel {}
 
@@ -116,7 +114,7 @@ export const SelectAll = observer(() => {
         <Editor
           height="90vh"
           defaultLanguage="typescript"
-          defaultValue="// some comment"
+          defaultValue="// код тут"
           onMount={(editor: monaco.editor.IStandaloneCodeEditor, _) => {
             store.updateEditor(editor);
             editor.onDidChangeCursorSelection((_) =>
@@ -151,9 +149,3 @@ export const SelectAll = observer(() => {
     </>
   );
 });
-export const MainPanel = observer(() => (
-  <div>
-    <div>123</div>
-    <SelectAll />
-  </div>
-));
