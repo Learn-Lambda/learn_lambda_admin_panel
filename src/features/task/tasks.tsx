@@ -5,6 +5,8 @@ import { useStore } from "../../core/helper/use_store";
 import { CoreButton } from "../../core/ui/button/button";
 import { TasksStore } from "./tasks_store";
 import { Editor } from "@monaco-editor/react";
+import { InputV2 } from "../../core/ui/input/input_v2";
+import { CoreText, CoreTextType } from "../../core/ui/text/text";
 
 export const TasksPath = "/tasks";
 
@@ -20,7 +22,9 @@ export const Tasks = observer(() => {
       <div style={{ height: "75vh", overflow: "auto" }}>
         {store.models()?.map((el) => (
           <div style={{ display: "flex", justifyContent: "space-around" }}>
-            {/* <div>{el.name}</div> */}
+            <div>{el.name}</div>
+            <div>{el.description}</div>
+
             <div onClick={() => store.editable(el)}>Редактирование</div>
             <div onClick={() => store.delete(el.id ?? 0)}>Удалить</div>
           </div>
@@ -30,17 +34,45 @@ export const Tasks = observer(() => {
       <ModalV2
         store={store}
         children={
-          <div style={{ height: "100vh", width: "100vw" }}>
+          <div style={{ width: "100vw", overflow: "auto", height: 500 }}>
+            <div style={{ width: "40vw" }}>
+              <InputV2
+                onChange={(text) => store.updateForm({ name: text })}
+                label="name"
+              />
+              <div style={{ height: 10 }} />
+              <InputV2
+                onChange={(text) => store.updateForm({ description: text })}
+                label="description"
+              />
+              <div style={{ height: 10 }} />
+
+              <InputV2
+                onChange={(text) => store.updateForm({ functionName: text })}
+                label="functionName"
+              />
+              <div style={{ height: 10 }} />
+
+              <InputV2
+                onChange={(text) =>
+                  store.updateForm({ complexity: Number(text) })
+                }
+                label="complexity"
+              />
+              <div style={{ height: 10 }} />
+              <InputV2
+                onChange={(text) =>
+                  store.updateForm({ testArguments: JSON.parse(text) })
+                }
+                label={"testArguments"}
+              />
+            </div>
+            <CoreText text="Code preview" type={CoreTextType.header} />
             <Editor
-              height="90vh"
               defaultLanguage="typescript"
-              defaultValue="// код тут"
-              onMount={(editor, _) => {
-                // store.updateEditor(editor);
-                // editor.onDidChangeCursorSelection((_) =>
-                //   store.updateLastSection(editor.getSelection())
-                // );
-              }}
+              defaultValue="// vscode preview"
+              onMount={(editor, _) => {}}
+              onChange={(text) => store.updateForm({ code: text })}
             />
           </div>
         }
