@@ -1,28 +1,42 @@
 import { observer } from "mobx-react-lite";
 import { AuthorizationStore } from "./authorization_store";
-import { CoreInput } from "../../core/ui/input/input";
-import { CoreButton } from "../../core/ui/button/button";
+
 import { useStore } from "../../core/helper/use_store";
+import { Input } from "../../core/ui/input/input";
+import { Button } from "../../core/ui/button/Button";
+import { Icon, IconType } from "../../core/ui/icon/icon";
 
 export const AuthorizationScreenPath = "/auth";
 export const AuthorizationScreen = observer(() => {
   const store = useStore(AuthorizationStore);
 
   return (
-    <div style={{ margin: 40 }}>
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}
+    >
+      <Icon type={IconType.bigLogoAuth} />
       <div style={{ height: 20 }} />
-      <CoreInput
-        label={"login"}
-        value={store.viewModel.login}
+      <Input
+        icon={IconType.email}
+        label={"Email"}
         onChange={(text) => store.updateForm({ login: text })}
       />
-      <CoreInput
-        label={"password"}
-        value={store.viewModel.password}
+      <div style={{ height: 20 }} />
+
+      <Input
+        icon={IconType.password}
+        label={"Пароль"}
         onChange={(text) => store.updateForm({ password: text })}
       />
       <div style={{ height: 20 }} />
-      <CoreButton text="login" onClick={() => store.onTapLogin()} />
+      <Button text="Авторизация" onClick={() => store.onTapLogin()} />
       <div style={{ height: 20 }} />
     </div>
   );

@@ -1,9 +1,9 @@
-import { MainPanel, MainPanelPath } from "../../features/main_panel/main_panel";
-import { IRouter } from "./routers";
+import { Tasks, TasksPath } from "../../features/tasks/tasks";
+import type { IRouter } from "./routers";
 
 export const privateRouters: IRouter[] = [
   {
-    element: <MainPanel />,
-    path: MainPanelPath,
+    path: TasksPath,
+    element: <Tasks />,
   },
 ];

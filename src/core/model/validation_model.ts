@@ -3,6 +3,7 @@ import { Result } from "../helper/result";
 import { validate, ValidationError } from "class-validator";
 
 export class ValidationModel {
+  id?:number;
   valid = async <T>(): Promise<Result<string, T>> => {
     const errors: ValidationError[] = await validate(this, {
       skipMissingProperties: false,

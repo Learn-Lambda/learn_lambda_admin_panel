@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AuthorizationLocalStorageRepository } from "../../features/authorization/authorization_repository";
 import { Result } from "../helper/result";
 import { ValidationModel } from "../model/validation_model";
@@ -21,7 +22,7 @@ export class HttpError extends Error {
 export class HttpRepository {
   private server = process.env.NODE_ENV === 'production' ? "https://automatic-balance-sheet-server.ru" : "http://localhost:4001";
   public async _formDataRequest<T>(method: HttpMethod, url: string, data?: any): Promise<Result<HttpError, T>> {
-    let formData = new FormData();
+    const formData = new FormData();
     formData.append("file", data);
     const authData = await this.auth();
 
@@ -98,10 +99,10 @@ export abstract class CoreHttpRepository extends HttpRepository {
   abstract featurePath: string;
 }
 export abstract class CrudHttpRepository<M extends ValidationModel> extends CoreHttpRepository {
-  getPage = (page = 0) => this._jsonRequest<M[]>(HttpMethod.GET, this.featurePath + `?page=${page}`);
+  getPage = (page = 1) => this._jsonRequest<M[]>(HttpMethod.GET, this.featurePath + `?page=${page}`);
   edit = async (model: M) => (await model.validMessage<M>()).map((validationModel) => this._jsonRequest(HttpMethod.PUT, this.featurePath, validationModel));
   addModel = async (model: M) => (await model.validMessage<M>()).map((validationModel) => this._jsonRequest(HttpMethod.POST, this.featurePath, validationModel));
-  deleteModel = async (id: string) => this._jsonRequest(HttpMethod.DELETE, this.featurePath + `?id=${id}`);
+  deleteModel = async (id: number) => this._jsonRequest(HttpMethod.DELETE, this.featurePath + `?id=${id}`);
 }
 
 

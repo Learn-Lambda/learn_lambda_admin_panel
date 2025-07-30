@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpMethod, HttpRepository } from "../../core/repository/http_repository";
 import { LocalStorageRepository } from "../../core/repository/local_storage_repository";
 import { AuthorizationModel } from "./authorization_model";
