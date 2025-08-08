@@ -60,8 +60,16 @@ export const InputV2: React.FC<{
             pointerEvents: "none",
             display: display,
           }}
+<<<<<<< HEAD
           text={label}
           color={error != undefined ? "#F44336" : "#64748B"}
+=======
+          contentEditable={true}
+          type={CoreTextType.header}
+          color={themeStore.theme.white}
+          fontType={FontType.ubuntu}
+          text={value}
+>>>>>>> 7595301ad1a6a6b52f5f60e85e6cc9ab5feae627
         />
       </div>
       <TextV2
