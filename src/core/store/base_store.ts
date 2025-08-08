@@ -1,4 +1,3 @@
- 
 import type { NavigateFunction } from "react-router-dom";
 import { Result } from "../helper/result";
 import { UiBaseError } from "../model/ui_base_error";
@@ -125,6 +124,15 @@ export abstract class UiDrawerFormState<V, E> extends DrawerState<E> {
     this.viewModel = plainToInstance(instance, viewModel);
   };
 }
+
+export abstract class NavigateState extends UiErrorState<any> {
+  navigate?: NavigateFunction;
+
+  async init(navigate?: NavigateFunction): Promise<any> {
+    this.navigate = navigate;
+  }
+}
+
 export abstract class FormState<V> extends UiErrorState<any> {
   abstract viewModel: V;
   navigate?: NavigateFunction;

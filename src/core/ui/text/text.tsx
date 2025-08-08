@@ -6,8 +6,19 @@ export const TextV2: React.FC<{
   size?: number;
   onChange?: (text: string) => void;
   style?: React.CSSProperties;
-}> = ({ isEditable, text, color, size, style, onChange, currentRef }) => (
+  onClick?: () => void;
+}> = ({
+  isEditable,
+  text,
+  color,
+  size,
+  style,
+  onChange,
+  currentRef,
+  onClick,
+}) => (
   <div
+    onClick={() => onClick?.()}
     ref={currentRef}
     onInput={(event) => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -15,14 +26,17 @@ export const TextV2: React.FC<{
       onChange?.(event.target.innerText);
     }}
     contentEditable={isEditable ?? false}
-    style={Object.assign(style ?? {}, {
-      fontFamily: `'Satoshi', sans-serif`,
-      fontStyle: "normal",
-      fontWeight: 500,
-      fontSize: size ?? 16,
+    style={Object.assign(
+      {
+        fontFamily: `'Satoshi', sans-serif`,
+        fontStyle: "normal",
+        fontWeight: 500,
+        fontSize: size ?? 16,
 
-      color: color ?? "black",
-    })}
+        color: color ?? "black",
+      },
+      style ?? {}
+    )}
   >
     {text}
   </div>

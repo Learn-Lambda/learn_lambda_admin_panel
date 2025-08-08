@@ -2,10 +2,19 @@ import React from "react";
 import { Icon, IconType } from "../icon/icon";
 import { Avatar } from "../avatar/avatar";
 import { TextV2 } from "../text/text";
-
-export const Page: React.FC<{ children?: React.ReactNode }> = ({
-  children,
-}) => {
+import Popover from "../popover/popover";
+import { observer } from "mobx-react-lite";
+import { useStore } from "../../helper/use_store";
+import { PageStore } from "./page_store";
+import { TrainPath } from "../../../features/train/train";
+import { useLocation } from "react-router-dom";
+// 95CB31
+export const Page: React.FC<{
+  children?: React.ReactNode;
+  style?: React.CSSProperties;
+}> = observer(({ children, style }) => {
+  const store = useStore(PageStore);
+  const location = useLocation();
   return (
     <div style={{ width: "100%", height: "100%", display: "flex" }}>
       <div
@@ -29,16 +38,17 @@ export const Page: React.FC<{ children?: React.ReactNode }> = ({
           }}
         />
         <div style={{ height: 50 }} />
-        <Icon type={IconType.group} />
-        <div style={{ height: 40 }} />
-        <Icon type={IconType.calendar} />
-        <div style={{ height: 40 }} />
-        <Icon type={IconType.list} />
-        <div style={{ height: 40 }} />
-        <Icon type={IconType.paper} />
-        <div style={{ height: 40 }} />
-        <Icon type={IconType.grid} />
-        <div style={{ height: 40 }} />
+        {store.pages.map((el) => (
+          <div onClick={() => store.navigate?.(el.path)}>
+            <Icon
+              type={el.iconType}
+              color={
+                location.pathname.includes(el.path) ? "#95CB31" : undefined
+              }
+            />
+            <div style={{ height: el.paddingBottom }} />
+          </div>
+        ))}
       </div>
       <div style={{ width: "calc(100% - 52px)", height: "100%" }}>
         <div
@@ -58,6 +68,7 @@ export const Page: React.FC<{ children?: React.ReactNode }> = ({
             }}
           >
             <div
+              onClick={() => store.navigate?.(TrainPath)}
               style={{
                 backgroundColor: "#1C2434",
                 width: 90,
@@ -65,12 +76,28 @@ export const Page: React.FC<{ children?: React.ReactNode }> = ({
                 borderRadius: 50,
                 boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25);",
                 border: "1px solid #000000",
-                alignContent: "center",
-                justifyItems: "center",
                 cursor: "pointer",
+                justifyContent: "center",
+                display: "flex",
+                alignItems: "center",
               }}
             >
-              <TextV2 text="zero" color="white" />
+              {store.currentTask?.tasks === undefined ||
+              store.currentTask?.tasks.isEmpty() ? (
+                <TextV2 text="zero" color="white" />
+              ) : (
+                <TextV2
+                  text={String(store.currentTask?.tasks.length)}
+                  color="white"
+                  style={{ paddingRight: 4 }}
+                />
+              )}
+              {store.currentTask?.tasks === undefined ||
+              store.currentTask?.tasks.isEmpty() ? (
+                <></>
+              ) : (
+                <Icon type={IconType.play} />
+              )}
             </div>
           </div>
           <div style={{ width: 30 }} />
@@ -81,24 +108,39 @@ export const Page: React.FC<{ children?: React.ReactNode }> = ({
               cursor: "pointer",
             }}
           >
-            <TextV2 text="user123" style={{ paddingRight: 20 }} />
+            <TextV2 text={store.user?.login} style={{ paddingRight: 20 }} />
           </div>
 
           <div style={{ alignContent: "center", height: "100%" }}>
-            <Avatar name={"qewdawe"} size={50} />
+            <Popover
+              content={
+                <div
+                  style={{ cursor: "pointer" }}
+                  onClick={() => store.logout()}
+                >
+                  Выйти
+                </div>
+              }
+              position="bottom"
+            >
+              <Avatar name={store.user?.login ?? "  "} size={50} />
+            </Popover>
           </div>
           <div style={{ width: 135 }} />
         </div>
         <div
-          style={{
-            height: "calc(100% - 85px)",
-            width: "100%",
-            backgroundColor: "#F1F5F9",
-          }}
+          style={Object.assign(
+            {
+              height: "calc(100% - 85px)",
+              width: "100%",
+              backgroundColor: "#F1F5F9",
+            },
+            style
+          )}
         >
           {children}
         </div>
       </div>
     </div>
   );
-};
+});
