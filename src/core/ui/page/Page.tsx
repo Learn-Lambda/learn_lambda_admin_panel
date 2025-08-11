@@ -8,11 +8,15 @@ import { useStore } from "../../helper/use_store";
 import { PageStore } from "./page_store";
 import { TrainPath } from "../../../features/train/train";
 import { useLocation } from "react-router-dom";
+import { TokenPath } from "../../../features/token/token";
+import { UiLoader } from "../../store/base_store";
+import { Loader } from "../loader/loader";
 // 95CB31
 export const Page: React.FC<{
   children?: React.ReactNode;
   style?: React.CSSProperties;
-}> = observer(({ children, style }) => {
+  pageStore: UiLoader;
+}> = observer(({ children, style, pageStore }) => {
   const store = useStore(PageStore);
   const location = useLocation();
   return (
@@ -114,12 +118,20 @@ export const Page: React.FC<{
           <div style={{ alignContent: "center", height: "100%" }}>
             <Popover
               content={
-                <div
-                  style={{ cursor: "pointer" }}
-                  onClick={() => store.logout()}
-                >
-                  Выйти
-                </div>
+                <>
+                  <div
+                    style={{ cursor: "pointer" }}
+                    onClick={() => store.navigate?.(TokenPath)}
+                  >
+                    Токен для vscode
+                  </div>
+                  <div
+                    style={{ cursor: "pointer" }}
+                    onClick={() => store.logout()}
+                  >
+                    Выйти
+                  </div>
+                </>
               }
               position="bottom"
             >
@@ -138,7 +150,7 @@ export const Page: React.FC<{
             style
           )}
         >
-          {children}
+          {pageStore.isLoading ? <Loader /> : <>{children}</>}
         </div>
       </div>
     </div>

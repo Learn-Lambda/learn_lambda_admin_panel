@@ -1,10 +1,11 @@
+import { NavigateState } from "../store/base_store";
 import { Button } from "./button/Button";
 import { IconType, Icon } from "./icon/icon";
 import { Input } from "./input/input";
 import { Page } from "./page/Page";
 import { Pagination } from "./pagination/pagination";
 import { TextV2 } from "./text/text";
-
+class S extends NavigateState {}
 export const Components = () => (
   <>
     <TextV2 text="123" />
@@ -16,7 +17,7 @@ export const Components = () => (
         </div>
       ))}
     </div>
-    <Page children={<></>} />
+    <Page pageStore={new S()} children={<></>} />
     <div style={{ height: 500, backgroundColor: "#a1a1a1" }}>
       <Input label="email" />
       <div style={{ height: 20 }} />

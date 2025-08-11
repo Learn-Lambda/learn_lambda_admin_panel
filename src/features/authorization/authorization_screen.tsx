@@ -3,9 +3,9 @@ import { AuthorizationStore } from "./authorization_store";
 
 import { useStore } from "../../core/helper/use_store";
 import { Input } from "../../core/ui/input/input";
-import { Button } from "../../core/ui/button/Button";
 import { Icon, IconType } from "../../core/ui/icon/icon";
-
+import { Button } from "../../core/ui/button/Button";
+   
 export const AuthorizationScreenPath = "/auth";
 export const AuthorizationScreen = observer(() => {
   const store = useStore(AuthorizationStore);

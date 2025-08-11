@@ -8,7 +8,21 @@ export const InputV2: React.FC<{
   icon?: IconType;
   label?: string;
   error?: string;
-}> = ({ onChange, initialValue, label, icon, error }) => {
+  bgColor?: string;
+  solidColor?: string;
+  fontSize?: number;
+  height?: number;
+}> = ({
+  onChange,
+  initialValue,
+  label,
+  icon,
+  error,
+  bgColor,
+  solidColor,
+  fontSize,
+  height,
+}) => {
   const [value, setValue] = useState(initialValue ?? "");
   const [hasFocus, setFocus] = useState(false);
   const [display, setDisplay] = useState("block");
@@ -55,21 +69,14 @@ export const InputV2: React.FC<{
         <TextV2
           style={{
             position: "absolute",
+            wordWrap:'normal',
             top: 8,
             left: icon != undefined ? 10 : 10,
             pointerEvents: "none",
             display: display,
           }}
-<<<<<<< HEAD
           text={label}
           color={error != undefined ? "#F44336" : "#64748B"}
-=======
-          contentEditable={true}
-          type={CoreTextType.header}
-          color={themeStore.theme.white}
-          fontType={FontType.ubuntu}
-          text={value}
->>>>>>> 7595301ad1a6a6b52f5f60e85e6cc9ab5feae627
         />
       </div>
       <TextV2
@@ -82,15 +89,16 @@ export const InputV2: React.FC<{
         text={initialValue}
         isEditable={true}
         style={{
-          border: "1.5px solid #E2E8F0",
+          border: `1.5px solid ${solidColor ?? "#E2E8F0"}`,
           borderRadius: 4,
-          height: 40,
-          background: "#EFF4FB",
-        //   width: 470,
+          height: height ?? 40,
+          background: bgColor ?? "#EFF4FB",
+          //   width: 470,
           paddingTop: 8,
 
           paddingLeft: icon != undefined ? 10 : 10,
           overflow: "auto",
+          fontSize: fontSize,
         }}
       />
       <div style={{ position: "relative" }}>

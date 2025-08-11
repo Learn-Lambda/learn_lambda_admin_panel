@@ -5,11 +5,7 @@ import { message } from "antd";
 import { plainToInstance, type ClassConstructor } from "class-transformer";
 import { CrudHttpRepository, HttpError } from "../repository/http_repository";
 import { ValidationModel } from "../model/validation_model";
-<<<<<<< HEAD
 import type { Pagination } from "../model/pagination";
-=======
-import { Pagination } from "../model/pagination";
->>>>>>> 7595301ad1a6a6b52f5f60e85e6cc9ab5feae627
 
 export type CoreError = HttpError | Error;
 

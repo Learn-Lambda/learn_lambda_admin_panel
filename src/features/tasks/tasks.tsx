@@ -14,6 +14,7 @@ export const Tasks = observer(() => {
   const store = useStore(TasksStore);
   return (
     <Page
+      pageStore={store}
       children={
         <>
           <div
