@@ -1,0 +1,16 @@
+export const assert = (fn: any, value: any) => {
+  if (fn() === value) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+export const p = (arg: number, arg2: number) => {
+  return arg * arg2;
+};
+
+assert(p(1, 2), 2);
+assert(p(1, 3), 3);
+assert(p(1, 4), 4);
+assert(p(2, 2), 4);
