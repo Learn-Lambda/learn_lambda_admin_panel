@@ -8,6 +8,10 @@ import {
   RecognitionTaskPath,
 } from "../../features/recognition_tasks/recognition_tasks";
 import { Tasks, TasksPath } from "../../features/task/tasks";
+import {
+  TaskSolutionPath,
+  TaskSolutionScreen,
+} from "../../features/task_solutions/task_solutions";
 import { Users, UsersPath } from "../../features/users/users";
 import { IRouter } from "./routers";
 
@@ -26,4 +30,5 @@ export const privateRouters: IRouter[] = [
   },
   { element: <Home />, path: HomePath },
   { element: <Users />, path: UsersPath },
+  { element: <TaskSolutionScreen />, path: TaskSolutionPath + ":id" },
 ];

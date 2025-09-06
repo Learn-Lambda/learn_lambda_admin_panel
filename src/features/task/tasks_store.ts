@@ -14,9 +14,9 @@ export class TasksStore extends CrudFormStore<TaskModel, TaskHttpRepository> {
   }
 
   createTaskModel = async () => {
-    if (this.viewModel.code === undefined) {
-      message.error("поле code не введено");
-    }
+    // if (this.viewModel.code === undefined) {
+    //   message.error("поле code не введено");
+    // }
     (await this.repository.createTaskModel({ code: this.viewModel.code })).map(
       (el) => {
         this.viewModel.functionName = el.functionName;

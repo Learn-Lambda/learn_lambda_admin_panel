@@ -11,5 +11,5 @@ export class TaskHttpRepository extends CrudHttpRepository<TaskModel> {
       code: string;
       functionName: string;
       testArguments: { result: any; arguments: any[] }[];
-    }>(HttpMethod.POST, `${this.featurePath}/create/task/model`, code);
+    }>(HttpMethod.POST, `/fill/task/args`, code);
 }

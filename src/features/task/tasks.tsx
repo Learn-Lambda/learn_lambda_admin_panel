@@ -7,6 +7,7 @@ import { CoreText, CoreTextType } from "../../core/ui/text/text";
 import { CoreTabs } from "../../core/ui/tabs/tabs";
 import { InputV3 } from "../../core/ui/input/input_v3";
 import { CoreButton } from "../../core/ui/button/button";
+import { TaskSolutionPath } from "../task_solutions/task_solutions";
 
 export const TasksPath = "/tasks";
 
@@ -32,6 +33,11 @@ export const Tasks = observer(() => {
                       <div>id: {el.id}</div>
                       <div>name: {el.name}</div>
                       <div>description: {el.description}</div>
+                      <div
+                        onClick={() =>
+                          store.navigate?.(TaskSolutionPath + el.id)
+                        }
+                      >перейти в решения</div>
                       <div style={{ width: "50vw" }}>
                         <Editor
                           height={200}
@@ -90,7 +96,6 @@ export const Tasks = observer(() => {
                       style={{ fontSize: 14 }}
                       onClick={() => {
                         store.viewModel.tags.push("");
-                        console.log(store.viewModel.tags);
                       }}
                     >
                       Добавить тэг

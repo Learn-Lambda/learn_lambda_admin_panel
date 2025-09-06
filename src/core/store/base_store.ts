@@ -164,6 +164,7 @@ export abstract class CrudFormStore<
   page?: Pagination<V>;
   abstract repository: R;
   async init(navigate?: NavigateFunction): Promise<any> {
+    super.init(navigate);
     await this.mapOk("page", this.read());
   }
 
